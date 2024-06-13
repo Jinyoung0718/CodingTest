@@ -2,14 +2,9 @@ def solution(n, control):
     
     sum = n
     
-    for i in range(0, len(control)):
-        if control[i] == "w":
-            sum += 1
-        elif control[i] == "s":
-            sum -= 1
-        elif control[i] == "d":
-            sum += 10
-        elif control[i] == "a":
-            sum -= 10
+    c = {'w':1, 's':-1, 'd':10, 'a':-10}
     
+    for i in control:
+        sum += c[i]
+        
     return sum
