@@ -1,10 +1,9 @@
-def solution(n, control):
+def solution(n, con):
+    dict = {'w':1, 's':-1, 'd':10, 'a':-10}
+    result = n
     
-    sum = n
+    for i in range(0, len(con)):
+        result += dict[con[i]]
     
-    c = {'w':1, 's':-1, 'd':10, 'a':-10}
-    
-    for i in control:
-        sum += c[i]
+    return result
         
-    return sum
