@@ -1,14 +1,13 @@
-def solution(ineq, eq, n, m) :
+def solution(ineq, eq, n, m):
     
     if ineq == ">":
         if eq == "=":
-            return int(n>=m)
-        if eq == "!":
-            return int(n>m)
-        
-    if ineq == "<":
+            return int(n >= m)
+        else:
+            return int(n > m)
+    else:
         if eq == "=":
-            return int(n<=m)
-        if eq == "!":
-            return int(n<m)
-        
+            return int(n <= m)
+        else:
+            return int(n < m)
+            
