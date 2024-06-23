@@ -1,17 +1,15 @@
 def solution(n):
     
-    result = 0
+    result1 = 0
+    result2 = 0
     
     if n % 2 == 0:
         for i in range(1, n+1):
             if i % 2 == 0:
-                result += i**2
+                result1 += i**2
+        return result1
     else:
         for i in range(1, n+1):
             if i % 2 != 0:
-                result += i
-    return result
-                
-            
-        
-                
+                result2 +=i
+        return result2
