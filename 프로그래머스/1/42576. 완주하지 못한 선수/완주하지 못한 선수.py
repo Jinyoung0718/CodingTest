@@ -1,14 +1,8 @@
-def solution(participant, completion):
+def solution(part, comple):
     
-    hashdict = {}
-    sumHash = 0
-    
-    for part in participant:
-        hashdict[hash(part)] = part
-        sumHash += hash(part)
-        
-    for comple in completion:
-        sumHash -= hash(comple)
-    
-    return hashdict[sumHash]
-    
+    part.sort()
+    comple.sort()
+    for i in range(0, len(comple)):
+        if part[i] != comple[i]:
+            return part[i]
+    return part[-1]
