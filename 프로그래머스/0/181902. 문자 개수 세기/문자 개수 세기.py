@@ -1,9 +1,12 @@
 def solution(my_string):
-    answer = [0 for i in range(52)]
     
-    for strig in my_string:
-        if strig.isupper(): k = 65
-        else: k = 71
-        answer[ord(strig) - k] += 1
-    return answer
-        
+    result = [0] * 52
+    
+    for num in my_string:
+        if num.isupper():
+            k = 65
+            result[ord(num) - k] +=1
+        else:
+            k = 71
+            result[ord(num) - k] +=1
+    return result
