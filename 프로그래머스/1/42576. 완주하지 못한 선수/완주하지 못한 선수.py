@@ -1,8 +1,11 @@
-def solution(part, comple):
+def solution(part, comp):
     
     part.sort()
-    comple.sort()
-    for i in range(0, len(comple)):
-        if part[i] != comple[i]:
-            return part[i]
+    comp.sort()
+    
+    for par, com in zip(part, comp):
+        
+        if par != com:
+            return par
+        
     return part[-1]
