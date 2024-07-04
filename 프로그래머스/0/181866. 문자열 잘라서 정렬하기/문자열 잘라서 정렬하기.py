@@ -1,4 +1,4 @@
 def solution(myString):
-    lis = myString.split("x")
-    lis2 = [i for i in lis if i.strip()]
-    return sorted(lis2)  
+    lis = sorted(myString.split("x"))
+    
+    return  [cha for cha in lis if cha]
