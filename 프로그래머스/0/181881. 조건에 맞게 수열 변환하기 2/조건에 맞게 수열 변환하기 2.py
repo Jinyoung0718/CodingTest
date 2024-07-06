@@ -1,19 +1,21 @@
 def solution(arr):
+    
     result = 0
     
-    while True:
-        new_arr = []
+    while 1:
+        temp = []
         for num in arr:
             if num >= 50 and num % 2 == 0:
-                new_arr.append(num // 2)
-            elif num < 50 and num % 2 != 0:
-                new_arr.append(num * 2 + 1)
+                temp.append(num / 2)
+            elif num < 50 and num % 2 != 0 :
+                temp.append((num * 2) + 1)
             else:
-                new_arr.append(num)
-                
-        if new_arr == arr:
+                temp.append(num)
+        if arr == temp:
             break
-        arr = new_arr
-        result += 1
-    
+        else:
+            arr = temp
+            result += 1
+            
     return result
+            
