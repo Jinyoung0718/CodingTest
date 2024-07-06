@@ -1,5 +1,6 @@
 def solution(myStr):
+    a = myStr.replace("a", ' ')
+    b = a.replace("b", ' ')
+    c = b.replace("c", ' ')
     
-    for i in ['a', 'b', 'c']:
-        myStr = myStr.replace(i, " ")
-    return  myStr.split() if myStr.split() else ["EMPTY"]
+    return c.split() if c.split() else ["EMPTY"]
