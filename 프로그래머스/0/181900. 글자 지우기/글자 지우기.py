@@ -1,10 +1,9 @@
-def solution(my_string, indices):
+def solution(mys, ind):
     
-    lis = list(my_string)
-    indices.sort(reverse=True)
-    
-    for i in range(0, len(indices)):
-        a = indices[i]
-        print(a)
-        lis.pop(a)
+    lis = list(mys)
+    ind.sort(reverse=True)
+    for i in ind:
+        lis.pop(i)
+        
     return ''.join(lis)
+        
