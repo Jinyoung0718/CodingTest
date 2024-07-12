@@ -1,12 +1,11 @@
 def solution(my_string):
     
-    result = [0] * 52
+    result = [0]*52
     
-    for num in my_string:
-        if num.isupper():
-            k = 65
-            result[ord(num) - k] +=1
-        else:
-            k = 71
-            result[ord(num) - k] +=1
+    for s in my_string:
+        if 65 <= ord(s) <= 90:
+            result[ord(s)-65] += 1
+        elif 97 <= ord(s) <= 122:
+            result[ord(s)-71] += 1
     return result
+    
