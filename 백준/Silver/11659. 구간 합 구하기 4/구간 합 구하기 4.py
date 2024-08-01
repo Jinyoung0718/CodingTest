@@ -11,6 +11,6 @@ for num in numbers:
     temp += num
     prefix_sum.append(temp)
 
-for _ in range (M):
-    I, J = map(int, input().split())
-    print(prefix_sum[J] - prefix_sum[I - 1])
+for _ in range(M):
+    A, B = map(int, input().split())
+    print(prefix_sum[B] - prefix_sum[A-1])
