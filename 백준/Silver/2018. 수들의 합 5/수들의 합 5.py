@@ -1,19 +1,19 @@
 n = int(input())
+
 sum = 1
 count = 1
-start_index = 1
-end_index = 1
-    
-while end_index != n:
+start_idx = 1
+end_idx = 1
+
+while end_idx != n:
     if sum == n:
         count += 1
-        end_index += 1
-        sum += end_index
+        end_idx += 1
+        sum += end_idx
     elif sum > n:
-        sum -= start_index
-        start_index += 1
-    elif sum < n:
-        end_index += 1
-        sum += end_index
-        
+        sum -= start_idx
+        start_idx += 1
+    else:
+        end_idx += 1
+        sum += end_idx
 print(count)
