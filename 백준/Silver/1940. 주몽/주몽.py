@@ -4,20 +4,20 @@ input = sys.stdin.readline
 n = int(input())
 m = int(input())
 A = list(map(int, input().split()))
-count = 0
 A.sort()
 
-i = 0
-j = n-1
+count = 0
+left = 0
+right = n-1
 
-while i < j:
-    if A[i] + A[j] < m:
-        i += 1
-    elif A[i] + A[j] > m:
-        j -= 1
-    elif A[i] + A[j] == m:
+while left < right:
+    if A[left] + A[right] < m:
+        left += 1
+    elif A[left] + A[right] > m:
+        right -= 1
+    else:
         count += 1
-        i +=1
-        j -=1
+        left += 1
+        right -= 1
 
 print(count)
