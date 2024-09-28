@@ -42,26 +42,23 @@ def myremove(c):
         if myList[3] == checkList[3]:
             checkSecret -= 1
         myList[3] -= 1
-
+        
 S, P = map(int, input().split())
 result = 0
 
 A = list(input())
 checkList = list(map(int, input().split()))
 
-# 처음에 조건이 0인 경우를 미리 count
 for i in range(4):
     if checkList[i] == 0:
         checkSecret += 1
 
-# 처음 P길이 만큼 슬라이딩 윈도우 적용
 for i in range(P):
     myadd(A[i])
 
 if checkSecret == 4:
     result += 1
 
-# 슬라이딩 윈도우로 전체 탐색
 for i in range(P, S):
     j = i - P
     myadd(A[i])
