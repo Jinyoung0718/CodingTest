@@ -1,8 +1,9 @@
-checkList = [0] * 4  # 비밀번호 체크 리스트
-myList = [0] * 4  # 현재 상태 리스트
-checkSecret = 0  # 몇 개의 문자와 관련된 개수를 충족했는지 판단하는 변수
+checkList = [0] * 4
+myList = [0] * 4
 
-def myadd(c):  # 새로 들어온 문자를 처리하는 함수
+checkSecret = 0
+
+def myadd(c):
     global checkList, myList, checkSecret
 
     if c == 'A':
@@ -44,22 +45,23 @@ def myremove(c):
 
 S, P = map(int, input().split())
 result = 0
-A = list(input().strip())
+
+A = list(input())
 checkList = list(map(int, input().split()))
 
-# 초기 설정에서 0인 문자에 대해 checkSecret 증가
+# 처음에 조건이 0인 경우를 미리 count
 for i in range(4):
     if checkList[i] == 0:
         checkSecret += 1
 
-# 처음 P 길이의 윈도우에 대해 설정
+# 처음 P길이 만큼 슬라이딩 윈도우 적용
 for i in range(P):
     myadd(A[i])
 
 if checkSecret == 4:
     result += 1
 
-# 슬라이딩 윈도우 적용
+# 슬라이딩 윈도우로 전체 탐색
 for i in range(P, S):
     j = i - P
     myadd(A[i])
