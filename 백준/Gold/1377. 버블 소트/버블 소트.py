@@ -1,17 +1,17 @@
 import sys
 input = sys.stdin.readline
 
-N = int(input())
+n = int(input())
 A = []
 
-for i in range(N):
+for i in range(n):
     A.append((int(input()), i))
 
-Max = 0
+max = 0
 sorted_A = sorted(A)
 
-for i in range(N):
-    if Max < sorted_A[i][1] - i:
-        Max = sorted_A[i][1] - i
+for i in range(n):
+    if max < sorted_A[i][1] - i: # 두 번째 값이 인덱스이므로, 값 이동을 위해 앞은 i
+        max = sorted_A[i][1] - i
 
-print(Max + 1)
+print(max + 1)
