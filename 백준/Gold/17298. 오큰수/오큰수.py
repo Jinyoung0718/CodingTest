@@ -1,15 +1,12 @@
 n = int(input())
-ans = [0] * n
-A = list(map(int, input().split()))
+A = list(map(int,input().split()))
 
-myStack = []
+stack = []
+result = [-1] * n
 
-for i in range (n):
-    while myStack and A[myStack[-1]] < A[i]:
-        ans[myStack.pop()] = A[i]
-    myStack.append(i)
+for i in range(n):
+    while stack and A[stack[-1]] < A[i]:
+        result[stack.pop()] = A[i]
+    stack.append(i)
 
-while myStack:
-    ans[myStack.pop()] = -1
-
-print(" ".join(map(str, ans)))
+print(" ".join(map(str, result)))
