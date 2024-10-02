@@ -1,28 +1,30 @@
 from collections import deque
 
-N = int(input())
-M = int(input())
+computer = int(input())
+relation = int(input())
 
-net = [[] for _ in range(N+1)]
-visited = [False for _ in range(N+1)]
+net = [[] for _ in range(computer + 1)]
+visited = [False for _ in range(computer + 1)]
+visited[0] = True
 
-for _ in range(M):
-    a, b = map(int, input().split())
-    net[a].append(b)
-    net[b].append(a)
 
-def bfs():
-    q = deque()
+for _ in range(relation):
+    s, e = map(int, input().split())
+    net[s].append(e)
+    net[e].append(s)
+
+def bfs(v):
+    visited[v] = True
     count = 0
-    q.append(1)
-    visited[1] = True
-    while q:
-        cur = q.popleft()
-        for i, val in enumerate(net[cur]):
-            if visited[val] == False:
-                q.append(val)
-                visited[val] = True
+    queue = deque()
+    queue.append(v)
+    while queue:
+        cur = queue.popleft()
+        for next_cur in net[cur]:
+            if visited[next_cur] == False:
+                visited[next_cur] = True
+                queue.append(next_cur) 
                 count += 1
     print(count)
 
-bfs()
+bfs(1)
