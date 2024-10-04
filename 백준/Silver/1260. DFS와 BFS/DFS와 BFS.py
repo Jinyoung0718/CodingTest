@@ -18,9 +18,7 @@ def dfs(v, visited, visited_set):
     
     return visited
 
-def bfs(v):
-    visited = []
-    visited_set = set()
+def bfs(v, visited, visited_set):
     visited.append(v)
     visited_set.add(v)
     queue = deque()
@@ -36,4 +34,4 @@ def bfs(v):
     return visited
 
 print(" ".join(map(str, dfs(v, [], set()))))
-print(" ".join(map(str, bfs(v))))
+print(" ".join(map(str, bfs(v, [], set()))))
