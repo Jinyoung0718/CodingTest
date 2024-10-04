@@ -1,25 +1,24 @@
-n, m = map(int, input().split())
+su, target = map(int, input().split())
 A = list(map(int, input().split()))
 
-sum = A[0]
 left = 0
-right = 1
+right = 0
 count = 0
+sum = 0
 
 while True:
-    if sum < m:
-        if right < n:
+    if sum < target:
+        if right < su:
             sum += A[right]
-            right += 1 # right를 먼저 더하면 끝 부분에서 오른쪽으로 이동 시, 인덱스 에러
-        elif right >= n:
+            right += 1
+        else:
             break
-    elif sum == m:
-        count += 1
-        sum -= A[left]
-        left +=1 
-    else:
+    elif sum > target:
         sum -= A[left]
         left += 1
+    else:
+        count += 1
+        sum -= A[left]
+        left += 1 
 
 print(count)
-
