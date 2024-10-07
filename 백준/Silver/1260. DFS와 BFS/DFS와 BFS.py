@@ -1,37 +1,39 @@
 from collections import deque
 
-
 n, m, v = map(int, input().split())
-graph = [[] for _ in range(n + 1)]
+graph = [[] for _ in range(n+1)]
 
-for i in range(m):
+for _ in range(m):
     s, e = map(int, input().split())
     graph[s].append(e)
     graph[e].append(s)
 
-def dfs(v, visited, visited_set):
-    visited.append(v)
-    visited_set.add(v)
+def dfs(v, arr1):
+    arr1.append(v)
+    visited_dfs[v] = True
     for next_v in sorted(graph[v]):
-        if next_v not in visited_set:
-            dfs(next_v, visited, visited_set)
-    
-    return visited
+        if not visited_dfs[next_v]:
+            dfs(next_v, arr1)
 
-def bfs(v, visited, visited_set):
-    visited.append(v)
-    visited_set.add(v)
+    return arr1
+
+def bfs(v, arr2):
+    arr2.append(v)
+    visited_bfs[v] = True
     queue = deque()
     queue.append(v)
     while queue:
         cur_v = queue.popleft()
         for next_v in sorted(graph[cur_v]):
-            if next_v not in visited_set:
-                visited.append(next_v)
-                visited_set.add(next_v)
+            if not visited_bfs[next_v]:
+                visited_bfs[next_v] = True
+                arr2.append(next_v)
                 queue.append(next_v)
+    
+    return arr2
 
-    return visited
+visited_dfs = [False] * (n + 1)
+print(" ".join(map(str, dfs(v, []))))
 
-print(" ".join(map(str, dfs(v, [], set()))))
-print(" ".join(map(str, bfs(v, [], set()))))
+visited_bfs = [False] * (n + 1)
+print(" ".join(map(str, bfs(v, []))))
