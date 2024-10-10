@@ -1,32 +1,32 @@
 import sys
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(100000)
+input = sys.stdin.readline
 
-n = int(input())
-tree = [[] for _ in range(n + 1)]
+node_su = int(input())
+tree = [[] for _ in range(node_su + 1)]
 
-for _ in range(n - 1):
+for _ in range(node_su - 1):
     parent, child, value = map(int, input().split())
     tree[parent].append((child, value))
     tree[child].append((parent, value))
 
-
-def dfs(node):
+def dfs(node, visited, distance):
+    visited[node] = True
     for next_node, dist in tree[node]:
         if not visited[next_node]:
-            visited[next_node] = True
-            distance[next_node] = distance[node] + dist 
-            dfs(next_node)
+            distance[next_node] = distance[node] + dist
+            dfs(next_node, visited, distance)
+    
+    return distance
 
-visited = [False] * (n + 1)
-visited[1] = True
-distance = [0] * (n + 1)
-dfs(1)
+visited = [False] * (node_su + 1)
+distance = [0] * (node_su + 1)
+distance_first = dfs(1, visited, distance)
 
-far_node = distance.index(max(distance))
+far_node = distance_first.index(max(distance_first))
+visited = [False] * (node_su + 1)
+distance = [0] * (node_su + 1)
 
-visited = [False] * (n + 1)
-visited[far_node] = True
-distance = [0] * (n + 1)
-dfs(far_node)
+distance_result = dfs(far_node, visited, distance)
 
-print(max(distance))
+print(max(distance_result))
