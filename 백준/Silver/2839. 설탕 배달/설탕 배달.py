@@ -1,20 +1,13 @@
-from collections import deque
+num = int(input())
+count = 0
 
-def bfs():
-    queue = deque()
-    queue.append(0)
-    visited[0] = 0
-    while queue:
-        cur_v = queue.popleft()
-        if cur_v == n:
-            print(visited[cur_v])
-            quit()
-        for next_v in (cur_v + 3, cur_v + 5):
-            if visited[next_v] == 0 and next_v <= n:
-                visited[next_v] =  visited[cur_v] + 1
-                queue.append(next_v)
+while num >= 0:
+  if num % 5 == 0:
+    count += int(num // 5)
+    print(count)
+    break
+  num -= 3
+  count += 1
+
+  if num < 0:
     print(-1)
-
-n = int(input())
-visited = [0] * (n + 5)
-bfs()
