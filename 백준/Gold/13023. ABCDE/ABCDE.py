@@ -3,7 +3,7 @@ input = sys.stdin.readline
 sys.setrecursionlimit(100000)
 
 people, relation = map(int, input().split())
-graph = [[] * people for _ in range(people)]
+graph = [[] for _ in range(people)]
 visited = [False] * people
 result = False
 
