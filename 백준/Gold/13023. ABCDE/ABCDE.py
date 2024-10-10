@@ -1,11 +1,10 @@
 import sys
-sys.setrecursionlimit(10000)
 input = sys.stdin.readline
+sys.setrecursionlimit(100000)
 
 people, relation = map(int, input().split())
 graph = [[] * people for _ in range(people)]
-visited = [False] * (people)
-
+visited = [False] * people
 result = False
 
 for _ in range(relation):
@@ -14,29 +13,24 @@ for _ in range(relation):
     graph[e].append(s)
 
 def dfs(v, depth):
+
     global result
+    visited[v] = True
 
     if depth == 4:
         result = True
-        return
-
-    visited[v] = True
+        return result
 
     for next_v in graph[v]:
         if not visited[next_v]:
             dfs(next_v, depth + 1)
     
     visited[v] = False
-    return result
-
-
 
 for i in range(people):
     dfs(i, 0)
     if result:
         break
 
-if result:
-    print(1)
-else:
-    print(0)
+if result: print(1)
+else: print(0)
