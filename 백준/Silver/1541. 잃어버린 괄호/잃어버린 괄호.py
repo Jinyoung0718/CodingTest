@@ -1,15 +1,12 @@
+data = list(map(str, input().split("-")))
 result = 0
-A = list(map(str, input().split("-")))
 
-def mySum(i):
-    sum = 0
-    temp = str(i).split("+")
-    for i in temp:
-        sum += int(i)
-    return sum
+def mySum(num):
+    temp = sum(map(int, num.split("+")))
+    return temp
 
-for i in range(len(A)):
-    temp = mySum(A[i])
+for i in range(len(data)):
+    temp = mySum(data[i])
     if i == 0:
         result += temp
     else:
