@@ -1,19 +1,16 @@
-n = int(input())
-arr = [[-1] * 1001 for _ in range(1001)]
+grid = [[0] * 1001 for _ in range(1001)]
+num_of_papers = int(input())
 
-for papter_id in range(n):
-    x1, y1, width, height = map(int, input().split())
-
-    for i in range(x1, x1 + width):
-        for j in range(y1, y1 + height):
-            arr[i][j] = papter_id
+for paper_id in range(1, num_of_papers + 1):
+    start_x, start_y, width, height = map(int, input().split())
     
-area = [0] * n
+    # 색종이의 범위를 평면에 표시
+    for y in range(start_y, start_y + height):
+        grid[y][start_x:start_x + width] = [paper_id] * width
 
-for i in range(1001):
-    for j in range(1001):
-        if arr[i][j] != -1:
-            area[arr[i][j]] += 1
+for paper_id in range(1, num_of_papers + 1):
+    visible_area = 0
+    for row in range(1001):
+        visible_area += grid[row].count(paper_id)
 
-for i in area:
-    print(i)
+    print(visible_area)
