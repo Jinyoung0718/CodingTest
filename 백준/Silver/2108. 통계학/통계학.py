@@ -2,35 +2,29 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-arr = []
+dic = {}
+maxd = 0
+data = list(int(input()) for _ in range(n))
+data.sort()
+print(round(sum(data) / n))
+print(data[n//2])
 
-for i in range(n):
-    arr.append(int(input()))
-
-arr.sort()
-
-print(round(sum(arr) / len(arr)))
-print(arr[len(arr) // 2])
-
-dic = dict()
-
-for i in arr:
-    if i in dic:
-        dic[i] += 1
+for num in data:
+    if num in dic:
+        dic[num] += 1
     else:
-        dic[i] = 1
-        
-mx = max(dic.values())
-
-mx_dic = []
-
-for i in dic:
-    if mx == dic[i]:
-        mx_dic.append(i)
-
-if len(mx_dic) > 1:
-    print(mx_dic[1])
-else:
-    print(mx_dic[0])
+        dic[num] = 1
     
-print(max(arr)-min(arr))
+maxd = max(dic.values())
+max_dic = []
+
+for key in dic:
+    if maxd == dic[key]:
+        max_dic.append(key)
+
+if len(max_dic) > 1:
+    print(max_dic[1])
+else:
+    print(max_dic[0])
+
+print(max(data) - min(data))
