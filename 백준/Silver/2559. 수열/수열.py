@@ -6,6 +6,7 @@ max_sum = current_sum
 
 for i in range(k, n):
     current_sum = current_sum - data[i - k] + data[i]
-    max_sum = max(max_sum, current_sum)
+    if current_sum > max_sum:
+        max_sum = current_sum
 
 print(max_sum)
