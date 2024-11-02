@@ -1,32 +1,32 @@
-def get_distance(direction, distance):
-    if direction == 1:
-        return distance
-    elif direction == 2:
-        return width + height + width - distance
-    elif direction == 3:
-        return (2 * width) + (2 * height) - distance 
+def get_distance(dir, dist):
+    if dir == 1:
+        return dist
+    elif dir == 2:
+        return width + height + width - dist
+    elif dir == 3:
+        return (2 * width) + (2 * height) - dist
     else:
-        return width + distance
+        return width + dist
 
 width, height = map(int, input().split())
 store = int(input())
-store_position = []
+store_path = []
+result = []
 
 for i in range(store + 1):
     if i == store:
-        guard_dir, guard_dist = map(int, input().split())
+        guard_direction, guard_dist = map(int, input().split())
     else:
-        store_position.append(list(map(int, input().split())))
-    
-total_dist = 0
-guard_path = get_distance(guard_dir, guard_dist)
+        store_path.append(list(map(int, input().split())))
 
-for direction, distance in store_position:
-    store_path = get_distance(direction, distance)
+guard_path = get_distance(guard_direction, guard_dist)
 
-    clockwise_dist = abs(guard_path - store_path)
-    counter_clockwise_dict = (2 * width) + (2 * height) - clockwise_dist
+for store_dir, store_dist in store_path:
+    store_dist = get_distance(store_dir, store_dist)
 
-    total_dist += min(clockwise_dist, counter_clockwise_dict)
+    clock_path = abs(guard_path - store_dist)
+    counter_clock_path = (2 * width) + (2 * height) - clock_path
 
-print(total_dist)
+    result.append(min(clock_path, counter_clock_path))
+
+print(sum(result))
