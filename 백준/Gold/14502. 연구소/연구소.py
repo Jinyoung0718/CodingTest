@@ -1,6 +1,5 @@
 from itertools import combinations
 from collections import deque
-import copy
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
@@ -27,7 +26,7 @@ def bfs(graph):
 
 temp = 0
 for walls in combinations(empty_space, 3):
-    copy_graph = copy.deepcopy(graph)
+    copy_graph = [row[:] for row in graph]
     for x, y in walls:
         copy_graph[x][y] = 1
 
