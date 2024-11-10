@@ -1,26 +1,27 @@
 import sys
 input = sys.stdin.readline
 
-def dfs(count, alst, blst):
-    global result
+n = int(input())
+m = n // 2
+graph = [list(map(int, input().split())) for _ in range(n)]
+result = 100 * n * m
 
-    if count == n:
+def dfs(depth, alst, blst):
+    global result
+    
+    if depth == n:
         if len(alst) == len(blst):
-            asm = bsm = 0
+            asum = bsum = 0
             for i in range(m):
                 for j in range(m):
-                    asm += graph[alst[i]][alst[j]]
-                    bsm += graph[blst[i]][blst[j]]
-            result = min(result, abs(asm - bsm))
+                    asum += graph[alst[i]][alst[j]]
+                    bsum += graph[blst[i]][blst[j]]
+            
+            result = min(result, abs(asum - bsum))
         return
 
-    dfs(count + 1, alst + [count], blst)
-    dfs(count + 1, alst, blst + [count])
-
-n = int(input())
-m = n//2
-graph = [list(map(int, input().split())) for _ in range(n)]
-result = 100 * m * n
+    dfs(depth + 1, alst + [depth], blst)
+    dfs(depth + 1, alst, blst + [depth])
 
 dfs(0, [], [])
 print(result)
