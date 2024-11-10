@@ -1,49 +1,52 @@
 n = int(input())
-graph_origin = [list(map(int, input().split())) for _ in range(n)]
+graph = [list(map(int, input().split())) for _ in range(n)]
 result = 0
 
 def move(graph):
     for i in range(len(graph)):
-        num = 0
         temp = []
+        num = 0
         for n in graph[i]:
-            if n == 0:
-                continue
-            elif n == num: 
+            if n == 0: continue
+            elif num != n:
+                if num == 0:
+                    num = n
+                elif num != 0:
+                    temp.append(num)
+                    num = n
+            elif num == n:
                 temp.append(num * 2)
                 num = 0
-            else:
-                if num != 0:
-                    temp.append(num)
-                num = n
+        
         if num != 0:
             temp.append(num)
-        graph[i] = temp + [0] * (len(graph[i]) - len(temp))
+        
+        graph[i] = temp + ([0] * (len(graph[i]) - len(temp)))
 
-def dfs(graph, count):
+def dfs(depth, graph):
     global result
 
-    if count == 5:
+    if depth == 5:
         result = max(result, max(map(max, graph)))
         return
+    
 
-    left_graph = [row[::] for row in graph]
-    move(left_graph)
-    dfs(left_graph, count + 1)
+    copy_graph = [row[::] for row in graph]
+    move(copy_graph)
+    dfs(depth + 1, copy_graph)
 
-    right_graph = [row[::-1] for row in graph]
-    move(right_graph)
-    dfs(right_graph, count + 1)
+    copy_graph = [row[::-1] for row in graph]
+    move(copy_graph)
+    dfs(depth + 1, copy_graph)
 
-    graph_transe = list(map(list, zip(*graph)))
+    copy_graph_t = list(map(list, zip(*graph)))
+    copy_graph = [row[::] for row in copy_graph_t]
+    move(copy_graph)
+    dfs(depth + 1, copy_graph)
 
-    up_graph = [row[::] for row in graph_transe]
-    move(up_graph)
-    dfs(up_graph, count + 1)    
+    copy_graph = [row[::-1] for row in copy_graph_t]
+    move(copy_graph)
+    dfs(depth + 1, copy_graph)
 
-    down_graph = [row[::-1] for row in graph_transe]
-    move(down_graph)
-    dfs(down_graph, count + 1)
-
-dfs(graph_origin, 0)
+dfs(0, graph)
 print(result)
