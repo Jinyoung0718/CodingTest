@@ -1,14 +1,15 @@
-def solution(part, comp):
+def solution(participant, completion):
+    memo = {}
     
-    dic = {}
-    sum_hash = 0
+    for person in participant:
+        if person in memo:
+            memo[person] += 1
+            continue
+        memo[person] = 1
     
-    for par in part:
-        val = hash(par)
-        dic[val] = par
-        sum_hash += val
+    for person in completion:
+        if person in memo:
+            memo[person] -= 1
     
-    for com in comp:
-        val = hash(com)
-        sum_hash -= val
-    return dic[sum_hash]
+    answer = "".join([key for key, value in memo.items() if value != 0])
+    return answer
