@@ -1,16 +1,17 @@
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
-str_memo = {}
-int_memo = {}
+memo = {}
+
 for i in range(1, n+1):
-    word = input()
-    str_memo[word] = i
-    int_memo[i] = word
+    word = input().rstrip()
+    memo[i] = word
+    memo[word] = i
 
-
-word = [input() for _ in range(m)]
-
-for n in word:
-    if n in str_memo:
-        print(str_memo[n])
+for i in range(m):
+    word = input().rstrip()
+    if word.isdigit():
+        print(memo[int(word)])
     else:
-        print(int_memo[int(n)])
+        print(memo[word])
