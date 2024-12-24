@@ -9,4 +9,4 @@ def solution(clothes):
     for type in memo:
         answer *= memo[type]
     
-    return answer - 1
+    return answer -1
