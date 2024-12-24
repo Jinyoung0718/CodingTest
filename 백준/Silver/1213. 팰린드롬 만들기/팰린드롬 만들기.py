@@ -1,19 +1,26 @@
-from collections import Counter
+word = input()
 
-word_check = Counter(input())
-result = ""
-odd_alpha = ""
-odd_check = 0
+freq = {}
+for char in word:
+    freq[char] = freq.get(char, 0) + 1
 
-for key, val in word_check.items():
-    if val % 2 != 0:
-        odd_alpha = key
-        odd_check += 1
-        if odd_check > 1:
-            print("I'm Sorry Hansoo")
-            exit()
+mid = ''  # 중앙에 올 문자
+flag = 0  # 홀수 개 문자 개수 카운트
+for char in freq:
+    if freq[char] % 2 == 1:
+        mid = char
+        flag += 1
+        freq[char] -= 1
+    if flag == 2:
+        print("I'm Sorry Hansoo")
+        exit()
 
-for key, val in sorted(word_check.items()):
-    result += (key * (val//2))
+# 팰린드_롬 구성
+result = []  # 앞쪽 절반
+for char in sorted(freq.keys()):  # 사전 순서로 정렬
+    result.append(char * (freq[char] // 2))  # 짝수 개 문자 절반 추가
 
-print(result + odd_alpha + result[::-1])
+# 최종 팰린드_롬 생성
+first_half = ''.join(result)
+palindrome = first_half + mid + first_half[::-1]  # 중앙 문자와 뒷부분 추가
+print(palindrome)
