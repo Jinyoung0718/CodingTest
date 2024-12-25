@@ -8,7 +8,11 @@ n = int(input())
 word = input()
 result = 0
 multiple = 0
-for n in word:
-    result += alpha[n]*(31**multiple)
+M = 1234567891
+r = 31
+
+for char in word:
+    result = (result + alpha[char] * (r ** multiple) % M) % M
     multiple += 1
+
 print(result)
