@@ -1,40 +1,35 @@
-from collections import deque
+import sys
 
-T = int(input())
+sys.setrecursionlimit(10 ** 6)
 
-for _ in range(T):
-    row, col, vagi = map(int, input().split())
+dy = [-1, 0, 1, 0]
+dx = [0, 1, 0, -1]
 
-    graph = [[0] * col for _ in range(row)]
-    visited = [[False] * col for _ in range(row)]
 
-    for _ in range(vagi):
+def dfs(x, y):
+    visited[x][y] = True
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < col and 0 <= ny < row:
+            if a[nx][ny] == 1 and not visited[nx][ny]:
+                dfs(nx, ny)
+
+t = int(input())
+for _ in range(t):
+    answer = 0
+    row, col, k = map(int, input().split())
+    a = [[0] * row for _ in range(col)]
+    visited = [[False] * row for _ in range(col)]
+
+    for _ in range(k):
         x, y = map(int, input().split())
-        graph[x][y] = 1
+        a[y][x] = 1
 
-    def bfs(x, y):
+    for i in range(col):
+        for j in range(row):
+            if a[i][j] == 1 and not visited[i][j]:
+                dfs(i, j)
+                answer += 1
 
-        dx = [-1, 1, 0, 0]
-        dy = [0, 0, -1, 1]
-        visited[x][y] = True
-        queue = deque()
-        queue.append((x, y))
-        while queue:
-            cur_x, cur_y = queue.popleft()
-            for i in range(4):
-                next_x = cur_x + dx[i]
-                next_y = cur_y + dy[i]
-                if 0 <= next_x < row and 0 <= next_y < col:
-                    if not visited[next_x][next_y] and graph[next_x][next_y] == 1:
-                        visited[next_x][next_y] = True
-                        queue.append((next_x, next_y))
-
-    result = 0
-
-    for i in range(row):
-        for j in range(col):
-            if graph[i][j] == 1 and not visited[i][j]:
-                bfs(i, j)
-                result += 1
-
-    print(result)
+    print(answer)
