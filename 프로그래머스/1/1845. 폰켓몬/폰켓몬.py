@@ -1,12 +1,8 @@
 def solution(nums):
-    answer = []
-    memo = {}
+    choice = len(nums) // 2
+    set_num = set(nums)
     
-    for num in nums:
-        memo[num] = True
-        if num not in answer:
-            if len(answer) != (len(nums) // 2):
-                answer.append(num)
-                
-    
-    return len(answer)
+    if len(set_num) > choice:
+        return choice
+    else:
+        return len(set_num)
