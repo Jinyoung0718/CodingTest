@@ -1,15 +1,14 @@
-def solution(participant, completion):
+def solution(part, comple):
     memo = {}
     
-    for person in participant:
-        if person in memo:
-            memo[person] += 1
+    for p in part:
+        if p in memo:
+            memo[p] += 1
             continue
-        memo[person] = 1
+        memo[p] = 1
     
-    for person in completion:
-        if person in memo:
-            memo[person] -= 1
+    for c in comple:
+        if c in memo:
+            memo[c] -= 1
     
-    answer = "".join([key for key, value in memo.items() if value != 0])
-    return answer
+    return "".join(map(str, [key for key, value in memo.items() if value == 1]))
