@@ -1,12 +1,9 @@
 n, k = map(int, input().split())
-data = list(map(int, input().split()))
-
-current_sum = sum(data[:k])
-max_sum = current_sum
+number = list(map(int, input().split()))
+cur_sum = sum(number[:k])
+answer = [cur_sum]
 
 for i in range(k, n):
-    current_sum = current_sum - data[i - k] + data[i]
-    if current_sum > max_sum:
-        max_sum = current_sum
-
-print(max_sum)
+    cur_sum = cur_sum - number[i-k] + number[i]
+    answer.append(cur_sum)
+print(max(answer))
