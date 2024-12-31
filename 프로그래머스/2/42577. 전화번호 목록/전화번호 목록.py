@@ -1,10 +1,8 @@
 def solution(phone):
     phone.sort()
     
-    temp = phone[0]
-    for num in phone[1:]:
-        if num.startswith(temp):
+    for p1, p2 in zip(phone, phone[1:]):
+        if p2.startswith(p1):
             return False
-        
-        temp = num
+    
     return True
