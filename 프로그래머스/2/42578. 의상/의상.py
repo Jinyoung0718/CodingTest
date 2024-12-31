@@ -6,7 +6,7 @@ def solution(clothes):
     
     answer = 1
     
-    for type in memo:
-        answer *= memo[type]
+    for key in memo:
+        answer *= memo[key]
     
-    return answer -1
+    return answer - 1
