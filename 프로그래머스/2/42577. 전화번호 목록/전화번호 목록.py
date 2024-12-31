@@ -1,14 +1,10 @@
-def solution(phone_book):
-    memo = {}
+def solution(phone):
+    phone.sort()
     
-    for num in phone_book:
-        memo[num] = True
-    
-    for num in phone_book:
-        temp = ""
-        for i in range(len(num)):
-            temp += num[i]
-            if temp in memo and temp != num:
-                return False
-    
+    temp = phone[0]
+    for num in phone[1:]:
+        if num.startswith(temp):
+            return False
+        
+        temp = num
     return True
