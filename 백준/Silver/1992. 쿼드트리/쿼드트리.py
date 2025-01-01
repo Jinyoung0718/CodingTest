@@ -1,6 +1,5 @@
-# 입력 받기
 n = int(input())
-a = [list(input().strip()) for _ in range(n)]
+a = [list(input()) for _ in range(n)]
 
 
 # 쿼드 트리 함수 정의
