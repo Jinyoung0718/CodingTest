@@ -7,9 +7,8 @@ def solution(prices):
             while stack and stack[-1][1] > prices[i]:
                 past, _ = stack.pop()
                 answer[past] = i - past
-                
         stack.append([i, prices[i]])
     
-    for i, s in stack:
-        answer[i] = len(prices) - 1 - i
+    for idx, _ in stack:
+        answer[idx] = len(prices) - 1 - idx
     return answer
