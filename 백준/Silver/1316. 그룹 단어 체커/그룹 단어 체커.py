@@ -1,19 +1,18 @@
 n = int(input())
 result = 0
-
 for _ in range(n):
-    word = input()
+    sentence = input()
     seen = set()
     previous = ""
     find = True
 
-    for w in word:
-        if previous != w:
-            if w in seen:
+    for i in sentence:
+        if previous != i:
+            if i in seen:
                 find = False
                 break
-            seen.add(w)
-        previous = w
+            seen.add(i)
+        previous = i
     
     if find: result += 1
 
