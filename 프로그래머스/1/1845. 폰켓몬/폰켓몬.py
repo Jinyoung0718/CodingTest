@@ -1,8 +1,8 @@
 def solution(nums):
-    choice = len(nums) // 2
-    set_num = set(nums)
+    temp = len(nums) // 2
+    set_nums = set(nums)
     
-    if len(set_num) > choice:
-        return choice
+    if len(set_nums) > temp:
+        return temp
     else:
-        return len(set_num)
+        return len(set_nums)
