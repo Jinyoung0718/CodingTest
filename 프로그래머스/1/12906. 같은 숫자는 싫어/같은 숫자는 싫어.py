@@ -1,10 +1,10 @@
 def solution(arr):
     stack = []
     
-    for num in arr:
-        if stack and stack[-1] == num:
+    for n in arr:
+        if stack and stack[-1] == n:
             continue
-        else:
-            stack.append(num)
+        stack.append(n)
+    
     
     return stack
