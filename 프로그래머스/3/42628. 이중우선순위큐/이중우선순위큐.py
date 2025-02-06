@@ -1,28 +1,21 @@
 import heapq
 
 def solution(operations):
-    answer = []
-    hq = []
-    
-    for operation in operations:
-        alphabet, number = operation.split()
-        number = int(number)
+    heap = []
 
-        if alphabet == 'I':
-            heapq.heappush(hq, number)    
-        else:
-            if hq: # 빈 큐에서 데이터를 삭제하라는 연산이 주어졌을 시 무시
-                if number == -1:
-                    heapq.heappop(hq) # 최솟값을 삭제
-                else:
-                    hq.sort()
-                    hq.pop() # 최댓값을 삭제
-                    
-    # 모든 연산을 처리한 후
-    hq.sort()
-    if hq: # 큐가 비어있지 않음
-        answer = [hq[-1], hq[0]]
-    else: # 큐가 비어있음
-        answer = [0, 0]
-        
-    return answer
+    for operation in operations:
+        operator, operand = operation.split(' ')
+        operand = int(operand)
+
+        if operator == 'I':
+            heapq.heappush(heap, operand)
+        elif heap:
+            if operand < 0:
+                heapq.heappop(heap)
+            else:
+                heap.remove(max(heap))
+
+    if not heap:
+        return [0, 0]
+
+    return [max(heap), heap[0]]
