@@ -1,30 +1,20 @@
-from collections import deque
-
 computer = int(input())
-relation = int(input())
+pair = int(input())
+tree = [[] for _ in range(computer + 1)]
+visited = [False] * (computer + 1)
 
-net = [[] for _ in range(computer + 1)]
-visited = [False for _ in range(computer + 1)]
-visited[0] = True
+for _ in range(pair):
+    start, end = map(int, input().split())
+    tree[start].append(end)
+    tree[end].append(start)
 
-
-for _ in range(relation):
-    s, e = map(int, input().split())
-    net[s].append(e)
-    net[e].append(s)
-
-def bfs(v):
+def dfs(v, arr):
     visited[v] = True
-    count = 0
-    queue = deque()
-    queue.append(v)
-    while queue:
-        cur = queue.popleft()
-        for next_cur in net[cur]:
-            if visited[next_cur] == False:
-                visited[next_cur] = True
-                queue.append(next_cur) 
-                count += 1
-    print(count)
+    for next_v in tree[v]:
+        if not visited[next_v]:
+            arr.append(next_v)
+            dfs(next_v, arr)
+    return arr
 
-bfs(1)
+answer = dfs(1, [])
+print(len(answer))
