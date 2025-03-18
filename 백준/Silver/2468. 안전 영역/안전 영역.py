@@ -2,11 +2,9 @@ from collections import deque
 
 n = int(input())
 graph = [list(map(int, input().split())) for _ in range(n)]
-visited = [[False for _ in range(n)] for _ in range(n)]
-max_height = max(map(max, graph))
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-result = 0
+dx = [-1, 0, 1, 0]
+dy = [0, -1, 0, 1]
+answer = 0
 
 def bfs(x, y, rain):
     queue = deque()
@@ -22,8 +20,8 @@ def bfs(x, y, rain):
                     visited[next_x][next_y] = True
                     queue.append((next_x, next_y))
 
-for rain in range(0, max_height + 1):
-    visited = [[False for _ in range(n)] for _ in range(n)]
+for rain in range(0, max(map(max, graph)) + 1):
+    visited = [[False] * n for _ in range(n)]
     count = 0
     for i in range(n):
         for j in range(n):
@@ -31,6 +29,6 @@ for rain in range(0, max_height + 1):
                 bfs(i, j, rain)
                 count += 1
 
-    result = max(result, count)
+    answer = max(answer, count)
 
-print(result)
+print(answer)
