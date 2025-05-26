@@ -1,8 +1,9 @@
 def solution(phone):
     phone.sort()
+    temp = ""
     
-    for p1, p2 in zip(phone, phone[1:]):
-        if p2.startswith(p1):
+    for i in range(1, len(phone)):
+        if phone[i].startswith(phone[i-1]):
             return False
     
     return True
