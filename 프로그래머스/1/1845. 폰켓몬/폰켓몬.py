@@ -1,8 +1,12 @@
 def solution(nums):
+    memo = {}
+    answer = 0
     temp = len(nums) // 2
-    set_nums = set(nums)
     
-    if len(set_nums) > temp:
-        return temp
+    for num in nums:
+        memo[num] = memo.get(num, 0) + 1
+    
+    if len(memo) < temp:
+        return len(memo)
     else:
-        return len(set_nums)
+        return temp
