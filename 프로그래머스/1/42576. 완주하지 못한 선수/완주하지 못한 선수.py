@@ -1,15 +1,12 @@
-def solution(part, comp):
+def solution(participant, completion):
+    
     memo = {}
-    answer = 0
     
-    for p in part:
-        memo[p] = memo.get(p, 0) + 1
+    for part in participant:
+        memo[part] = memo.get(part, 0) + 1
     
-    for c in comp:
-        memo[c] -= 1
+    for comp in completion:
+        if comp in memo:
+            memo[comp] -= 1
     
-    for i in memo:
-        if memo[i] == 1:
-            answer = i
-    
-    return answer
+    return [key for key, val in memo.items() if val == 1][0]
