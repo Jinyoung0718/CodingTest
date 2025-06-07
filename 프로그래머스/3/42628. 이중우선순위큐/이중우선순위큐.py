@@ -1,21 +1,21 @@
-def solution(arguments):
-    queue = list()
-    for operation in arguments :
-        if operation[0] == 'I' :
-            queue.append(int(operation[1 : ]))
-        elif operation[0] == 'D' :
+import heapq
 
-            if len(queue) == 0 :
-                continue
+def solution(operations):
+    heap = []
 
-            if int(operation[1 : ]) == 1 :
-                queue.remove(max(queue))
-            elif int(operation[1 : ]) == -1 :
-                queue.remove(min(queue))
+    for operation in operations:
+        operator, operand = operation.split(' ')
+        operand = int(operand)
 
-    if len(queue) == 0 :
-        answer = [0, 0]
-    else :
-        answer = [max(queue), min(queue)]
+        if operator == 'I':
+            heapq.heappush(heap, operand)
+        elif heap:
+            if operand < 0:
+                heapq.heappop(heap)
+            else:
+                heap.remove(max(heap))
 
-    return answer
+    if not heap:
+        return [0, 0]
+
+    return [max(heap), heap[0]]
