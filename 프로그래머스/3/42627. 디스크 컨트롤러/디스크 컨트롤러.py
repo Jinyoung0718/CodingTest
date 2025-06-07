@@ -10,7 +10,7 @@ def solution(jobs):
     while i < len(jobs):
         for job in jobs:
             if start < job[0] <= now:
-                heapq.heappush(heap, (job[1], job[0]))
+                heapq.heappush(heap, [job[1], job[0]])
         
         if heap:
             current = heapq.heappop(heap)
@@ -22,3 +22,4 @@ def solution(jobs):
             now += 1
     
     return answer // len(jobs)
+            
