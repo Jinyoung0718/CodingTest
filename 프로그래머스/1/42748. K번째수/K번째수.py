@@ -1,8 +1,10 @@
-def solution(arr, comm):
-    result = []
+def solution(array, commands):
     
-    for i, j, k in comm:  
-        sort_arr = sorted(arr[i-1:j])  
-        result.append(sort_arr[k-1])  
+    answer = []
     
-    return result
+    for i, j, k in commands:
+        temp = array[i-1:j]
+        temp.sort()
+        answer.append(temp[k-1])
+    
+    return answer
