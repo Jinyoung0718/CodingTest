@@ -2,29 +2,24 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-dic = {}
-maxd = 0
-data = list(int(input()) for _ in range(n))
-data.sort()
-print(round(sum(data) / n))
-print(data[n//2])
+arr = [int(input() )for _ in range(n)]
+arr.sort()
+memo = {}
 
-for num in data:
-    if num in dic:
-        dic[num] += 1
-    else:
-        dic[num] = 1
-    
-maxd = max(dic.values())
-max_dic = []
+for num in arr:
+    memo[num] = memo.get(num, 0) + 1
 
-for key in dic:
-    if maxd == dic[key]:
-        max_dic.append(key)
+temp = max(memo.values())
+answer = []
 
-if len(max_dic) > 1:
-    print(max_dic[1])
-else:
-    print(max_dic[0])
+for key, val in memo.items():
+    if val == temp:
+        answer.append(key)
 
-print(max(data) - min(data))
+answer.sort()
+mode = answer[1] if len(answer) > 1 else answer[0]
+
+print(round(sum(arr) / n))
+print(arr[n // 2])
+print(mode)
+print(arr[-1] - arr[0])
