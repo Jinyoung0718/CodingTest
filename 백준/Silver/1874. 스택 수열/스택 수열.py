@@ -1,32 +1,24 @@
-N = int(input())
-A = [0] * N
-
-for i in range(N):
-    A[i] = int(input())
+n = int(input())
+target_sequence = [int(input()) for _ in range(n)]
 
 stack = []
+result = []
+current = 1
+possible = True
 
-num = 1
-result = True
-answer = ""
-
-for i in range(N):
-    su = A[i]
-    if su >= num:
-        while su >= num:
-            stack.append(num)
-            num += 1
-            answer += "+\n"
+for target in target_sequence:
+    while current <= target:
+        stack.append(current)
+        result.append('+')
+        current += 1
+    if stack[-1] == target:
         stack.pop()
-        answer += "-\n"
+        result.append('-')
     else:
-        n = stack.pop()
-        if n > su:
-            print("NO")
-            result = False
-            break
-        else:
-            answer += "-\n"
+        possible = False
+        break
 
-if result:
-    print(answer)
+if possible:
+    print('\n'.join(result))
+else:
+    print("NO")
