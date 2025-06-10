@@ -1,9 +1,9 @@
-n = input()
 count = [0] * 10
+n = input()
 
-for i in range(len(n)):
-    num = int(n[i])
-    if num == 9 or num == 6:
+for i in n:
+    num = int(i)
+    if num == 6 or num == 9:
         if count[6] < count[9]:
             count[6] += 1
         else:
