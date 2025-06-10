@@ -1,18 +1,22 @@
-import functools
+from functools import cmp_to_key
 
-def comparator(a, b):
-    t1 = a + b  
-    t2 = b + a  
-
-    if int(t1) > int(t2):
-        return -1  # 원래 1을 반환했던 부분을 -1로 변경
-    elif int(t1) < int(t2):
-        return 1   # 원래 -1을 반환했던 부분을 1로 변경
-    else: 
+def compare(x, y):
+    if x + y > y + x:
+        return -1  # x가 앞에 와야 함
+    elif x + y < y + x:
+        return 1   # y가 앞에 와야 함
+    else:
         return 0
 
 def solution(numbers):
-    n = [str(x) for x in numbers]
-    n = sorted(n, key=functools.cmp_to_key(comparator))  # reverse=True 제거
-    answer = str(int(''.join(n)))
-    return answer
+    # 모든 숫자를 문자열로 변환
+    numbers_str = list(map(str, numbers))
+    
+    # 비교 함수 기반으로 정렬
+    numbers_str.sort(key=cmp_to_key(compare))
+    
+    # 예외 처리: [0, 0, 0] -> '0'이 되게
+    if numbers_str[0] == '0':
+        return '0'
+    
+    return ''.join(numbers_str)
