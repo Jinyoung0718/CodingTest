@@ -1,18 +1,17 @@
-n, m = map(int, input().split())
-data = list(map(int, input().split()))
-result = 0
+n, s = map(int, input().split())
+arr = list(map(int, input().split()))
+answer = 0
 
-def dfs(depth, cur_sum, count):
-    global result
+def dfs(index, total, count):
+    global answer
 
-    if depth == n:
-        if cur_sum == m and count > 0:
-            result += 1
+    if index == n:
+        if total == s and count > 0:
+            answer += 1
         return
 
-    dfs(depth + 1, cur_sum + data[depth], count + 1) 
-    dfs(depth + 1, cur_sum, count)       
+    dfs(index + 1, total + arr[index], count + 1)
+    dfs(index + 1, total, count)
 
 dfs(0, 0, 0)
-
-print(result)
+print(answer)
