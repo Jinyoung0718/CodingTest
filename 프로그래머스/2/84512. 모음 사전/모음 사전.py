@@ -1,11 +1,19 @@
-def solution(word):
+def solution(words):
     answer = 0
-    dic = ['A', 'E', 'I', 'O', 'U']
-    li = [5**i for i in range(len(dic))]
+    word_list = []
+    alpha = "AEIOU"
     
-    for i in range(len(word)-1,-1,-1):
-        idx = dic.index(word[i])
-        for j in range(5-i):
-            answer += li[j]*idx
-        answer+=1
-    return answer
+    def dfs(depth, word):
+        
+        if depth == 5:
+            return
+        
+        for i in range(5):
+            word_list.append(word + alpha[i])
+            dfs(depth + 1, word + alpha[i])
+            
+            
+    
+    dfs(0, "")
+    
+    return word_list.index(words) + 1
