@@ -1,10 +1,12 @@
 def solution(arr):
-    stack = []
+    
+    answer = []
     
     for num in arr:
-        if stack and num == stack[-1]:
+        
+        if answer and answer[-1] == num:
             continue
         else:
-            stack.append(num)
+            answer.append(num)
     
-    return stack
+    return answer
