@@ -1,21 +1,27 @@
 from collections import deque
 
-def solution(prior, location):
-    queue = deque((i, p) for i, p in enumerate(prior))
-    result = 0
-
-    while queue:
+def solution(priorities, location):
+    
+    queue = deque()
+    answer = 0
+    
+    for idx, val in enumerate(priorities):
+        queue.append([idx, val])
+    
+    while True:
         idx, val = queue.popleft()
-        has_higher = False
         
-        for _, p in queue:
-            if p > val:
-                has_higher = True
+        find = False
+        
+        for _, num in queue:
+            
+            if num > val:
+                find = True
                 break
-
-        if has_higher:
+        
+        if find:
             queue.append((idx, val))
         else:
-            result += 1
+            answer += 1
             if idx == location:
-                return result
+                return answer
