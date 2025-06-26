@@ -1,11 +1,13 @@
 def solution(prices):
+    answer = []
     n = len(prices)
-    answer = [0] * n
 
     for i in range(n):
+        count = 0
         for j in range(i + 1, n):
-            answer[i] += 1
-            if prices[j] < prices[i]:
+            count += 1
+            if prices[i] > prices[j]:  # 가격이 떨어진 순간
                 break
+        answer.append(count)
 
     return answer
