@@ -1,25 +1,26 @@
 import heapq
 
 def solution(jobs):
+    
     answer = 0
-    i = 0
+    count = 0
     start = -1
     now = 0
     heap = []
     
-    while i < len(jobs):
-        for job in jobs:
-            if start < job[0] <= now:
-                heapq.heappush(heap, [job[1], job[0]])
+    while count < len(jobs):
+        
+        for req_num, job_num in jobs:
+            if start < req_num <= now:
+                heapq.heappush(heap, (job_num, req_num))
         
         if heap:
-            current = heapq.heappop(heap)
+            cur_job_num, cur_req_num = heapq.heappop(heap)
             start = now
-            now += current[0]
-            answer += now - current[1]
-            i += 1
+            now += cur_job_num
+            answer += now - cur_req_num
+            count += 1
         else:
             now += 1
     
     return answer // len(jobs)
-            
