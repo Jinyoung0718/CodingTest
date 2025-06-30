@@ -1,8 +1,8 @@
-from collections import deque
+from collections import deque, defaultdict
 
 def solution(n, edge):
     
-    graph = [[] for _ in range(n + 1)]
+    graph = defaultdict(list)
 
     for start, end in edge:
         graph[start].append(end)
