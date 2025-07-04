@@ -12,7 +12,6 @@ def bfs():
     visited = [[False] * row for _ in range(col)]
     queue = deque()
     queue.append((0, 0))
-    visited[0][0] = True
     melt = 0
     while queue:
         cur_x, cur_y = queue.popleft()
@@ -22,15 +21,17 @@ def bfs():
             if 0 <= next_x < col and 0 <= next_y < row:
                 if not visited[next_x][next_y]:
                     visited[next_x][next_y] = True
+
                     if graph[next_x][next_y] == 1:
                         graph[next_x][next_y] = 0
-                        melt += 1 # 이후 큐 삽입 X [테두리만]
+                        melt += 1
                     else:
                         queue.append((next_x, next_y))
 
     return melt
 
 while True:
+
     melted = bfs()
 
     if melted == 0:
