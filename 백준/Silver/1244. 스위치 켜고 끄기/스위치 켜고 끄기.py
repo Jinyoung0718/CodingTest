@@ -4,6 +4,7 @@ def change(index):
     else:
         switch[index] = 1
 
+
 total = int(input())
 switch = [-1] + list(map(int, input().split()))
 student = int(input())
@@ -14,18 +15,18 @@ for _ in range(student):
     if sex == 1:
         for i in range(target, len(switch), target):
             change(i)
-    else:
+    
+    if sex == 2:
         change(target)
-        i = 1
-        while target - i > 0 and target + i <= total:
-            if switch[target - i] == switch[target + i]:
-                change(target - i)
+        for i in range(total//2):
+            if target + i > total or target - i < 1: break
+            if switch[target + i] == switch[target - i]:
                 change(target + i)
+                change(target - i)
             else:
                 break
-            i += 1
-            
+
 for i in range(1, len(switch)):
-    print(switch[i], end= " ")
+    print(switch[i], end=" ")
     if i % 20 == 0:
         print()
