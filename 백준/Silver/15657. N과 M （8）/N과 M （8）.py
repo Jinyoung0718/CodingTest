@@ -1,7 +1,7 @@
 n, m = map(int, input().split())
-n_arr = list(map(int, input().split()))
-visited = [False] * n
-n_arr.sort()
+lst = list(map(int, input().split()))
+lst.sort()
+
 answer = []
 
 def dfs(depth, start, arr):
@@ -11,9 +11,9 @@ def dfs(depth, start, arr):
         return
 
     for i in range(start, n):
-        dfs(depth + 1, i, arr + [n_arr[i]])
+        dfs(depth + 1, i, arr + [lst[i]])
 
-dfs(0, 0, [])
+dfs(0, 0,[])
 
-for n in answer:
-    print(*n)
+for row in answer:
+    print(*row)
