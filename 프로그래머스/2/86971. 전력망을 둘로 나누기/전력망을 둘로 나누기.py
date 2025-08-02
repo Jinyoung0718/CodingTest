@@ -1,43 +1,26 @@
-from collections import deque
-
-def bfs(graph, visited, start_node):
-    visited[start_node] = True
-    queue = deque()
-    queue.append((start_node))
-    count = 1
-    
-    while queue:
-        cur_node = queue.popleft()
-        for next_node in graph[cur_node]:
-            if not visited[next_node]:
-                visited[next_node] = True
-                queue.append(next_node)
-                count += 1
-    
-    return count
-            
-        
 def solution(n, wires):
-    answer = n - 2
-    
-    for i in range(len(wires)):
-        temp = wires[:i] + wires[i+1:]
-        graph = [[] for _ in range(n + 1)]
-        visited = [False] * (n + 1)
-        
-        for x, y in temp:
-            graph[x].append(y)
-            graph[y].append(x)
-        
-        for node in range(1, n + 1):
-            if graph[node]:
-                start = node
-                break
-        
-        a = bfs(graph, visited, start)
-        b = n - a
-        answer = min(answer, abs(a - b))
-    
-    return answer
+    from collections import defaultdict
+
+    graph = defaultdict(list)
+    for a, b in wires:
+        graph[a].append(b)
+        graph[b].append(a)
+
+    min_diff = n
+
+    def dfs(node, parent):
+        nonlocal min_diff
+        size = 1  # 자기 자신 포함
+        for neighbor in graph[node]:
+            if neighbor != parent:
+                subtree_size = dfs(neighbor, node)
+                diff = abs(n - 2 * subtree_size)
+                min_diff = min(min_diff, diff)
+                size += subtree_size
+        return size
+
+    dfs(1, -1)  # 루트를 1로 잡고 시작
+    return min_diff
+
     
     
