@@ -17,7 +17,7 @@ def check(users, banned_id):
 
 def solution(user_id, banned_id):
     
-    perm = list(permutations(user_id, len(banned_id)))
+    perm = permutations(user_id, len(banned_id))
     ban_set = []
     
     for users in perm:
