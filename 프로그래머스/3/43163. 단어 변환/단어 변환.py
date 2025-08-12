@@ -5,12 +5,12 @@ def can_convert(word1, word2):
     
     for a, b in zip(word1, word2):
         if a != b:
-            diff += 1        
+            diff += 1
+            
             if diff > 1:
                 return False
     
-    return diff == 1
-            
+    return diff == 1 # 다른 게 하나일 때 True 반환
 
 def solution(begin, target, words):
     
@@ -18,7 +18,7 @@ def solution(begin, target, words):
         return 0
     
     queue = deque()
-    queue.append((begin, 0))
+    queue.append((begin, 0)) # start 노드와 현재 횟수
     visited = set()
     
     while queue:
