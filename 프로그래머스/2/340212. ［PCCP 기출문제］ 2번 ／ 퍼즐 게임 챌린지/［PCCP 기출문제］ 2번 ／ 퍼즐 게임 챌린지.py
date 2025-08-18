@@ -1,40 +1,30 @@
 def solution(diffs, times, limit):
     n = len(diffs)
+    lo, hi = 1, max(diffs)  # level은 양의 정수, max(diffs)면 항상 모두 한 번에 통과
 
-    # 주어진 level에서 총 소요 시간이 limit 이하인지 검사
-    def ok(level):
+    def can(level):
         total = 0
-
-        # 0번 퍼즐: diffs[0] = 1 (문제 보장) → level ≥ 1 이므로 항상 한 번에 통과
+        # 첫 퍼즐: diffs[0] == 1, level >= 1 이므로 항상 한 번에 해결
         total += times[0]
         if total > limit:
             return False
-
-        i = 1
-        while i < n:
-            d = diffs[i]
-            t = times[i]
+        for i in range(1, n):
+            d, t = diffs[i], times[i]
             if d <= level:
                 total += t
             else:
-                k = d - level  # 틀리는 횟수
+                k = d - level
                 total += k * (t + times[i - 1]) + t
-            if total > limit:  # 가지치기
+            if total > limit:  # 가지치기로 시간 단축
                 return False
-            i += 1
+        return total <= limit
 
-        return True
-
-    start = 1
-    end = 100000
-    answer = end
-
-    while start <= end:
-        mid = (start + end) // 2
-        if ok(mid):
-            answer = mid
-            end = mid - 1
+    ans = hi
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if can(mid):
+            ans = mid
+            hi = mid - 1
         else:
-            start = mid + 1
-
-    return answer
+            lo = mid + 1
+    return ans
