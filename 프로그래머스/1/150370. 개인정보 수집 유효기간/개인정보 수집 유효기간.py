@@ -1,24 +1,23 @@
-def date_to_days(date):
-    y, m, d = map(int, date.split('.'))
-    return (y * 12 * 28) + (m * 28) + d
-
+def date_to_day(date):
+    year, month, day = map(int, date.split("."))
+    return (year * 12 * 28) + (month * 28) + day
+    
 def solution(today, terms, privacies):
-    today_days = date_to_days(today)
     answer = []
+    today = date_to_day(today)
     terms_dic = {}
     
-    for n in terms:
-        part_1, part_2 = n.split()
-        terms_dic[part_1] = int(part_2)
-    
-    for idx, privacy in enumerate(privacies, start=1):
+    for term in terms:
+        plan, time = term.split()
+        terms_dic[plan] = int(time)
+        
+    for idx, privacy in enumerate(privacies):
         date, plan = privacy.split()
-        months = terms_dic[plan]
         
-        start_days = date_to_days(date)
-        expire_days = start_days + (months * 28)
+        term_month = terms_dic[plan]
+        expire_date = date_to_day(date) + (term_month * 28)
         
-        if expire_days <= today_days:
-            answer.append(idx)
+        if expire_date <= today:
+            answer.append(idx + 1)
     
     return answer
