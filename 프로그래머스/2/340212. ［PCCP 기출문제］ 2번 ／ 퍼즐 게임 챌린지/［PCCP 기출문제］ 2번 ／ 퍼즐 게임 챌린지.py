@@ -1,30 +1,42 @@
-def solution(diffs, times, limit):
+def ok(diffs, times, limit, level):
     n = len(diffs)
-    lo, hi = 1, max(diffs)  # level은 양의 정수, max(diffs)면 항상 모두 한 번에 통과
+    total_time = 0
 
-    def can(level):
-        total = 0
-        # 첫 퍼즐: diffs[0] == 1, level >= 1 이므로 항상 한 번에 해결
-        total += times[0]
-        if total > limit:
-            return False
-        for i in range(1, n):
-            d, t = diffs[i], times[i]
-            if d <= level:
-                total += t
-            else:
-                k = d - level
-                total += k * (t + times[i - 1]) + t
-            if total > limit:  # 가지치기로 시간 단축
-                return False
-        return total <= limit
+    # diffs[0] = 1이고 숙련도 level은 최소 1로 가정
+    total_time += times[0]
+    if total_time > limit:
+        return False
 
-    ans = hi
-    while lo <= hi:
-        mid = (lo + hi) // 2
-        if can(mid):
-            ans = mid
-            hi = mid - 1
+    for i in range(1, n):
+        cur_d = diffs[i]
+        cur_t = times[i]
+        prev_t = times[i - 1]
+        
+        if cur_d <= level:
+            total_time += cur_t
         else:
-            lo = mid + 1
-    return ans
+            k = cur_d - level
+            # k * (t + times[i-1])는 전부 실패한 시도들, 마지막 + t는 성공 시도
+            total_time += k * (cur_t + prev_t) + cur_t
+
+        if total_time > limit:
+            return False
+
+    return True
+
+
+def solution(diffs, times, limit):
+    # 1 ≤ times[i] ≤ 10,000
+    start = 1
+    end = 10**6
+    answer = end
+
+    while start <= end:
+        mid = (start + end) // 2
+        if ok(diffs, times, limit, mid):
+            answer = mid
+            end = mid - 1
+        else:
+            start = mid + 1
+
+    return answer
