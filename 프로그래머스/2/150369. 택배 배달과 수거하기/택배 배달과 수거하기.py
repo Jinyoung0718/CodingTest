@@ -1,18 +1,20 @@
 def solution(cap, n, deliveries, pickups):
-    deliveries = deliveries[::-1]
-    pickups = pickups[::-1]
     answer = 0
+    d = 0
+    p = 0
+    pos = n - 1
 
-    have_to_deli = 0
-    have_to_pick = 0
+    for i in range(n - 1, -1, -1):
+        d += deliveries[i]
+        p += pickups[i]
 
-    for i in range(n):
-        have_to_deli += deliveries[i]
-        have_to_pick += pickups[i]
+        while d > cap or p > cap:
+            d -= cap
+            p -= cap
+            answer += 2 * (pos + 1)
+            pos = i
 
-        while have_to_deli > 0 or have_to_pick > 0:
-            have_to_deli -= cap
-            have_to_pick -= cap
-            answer += (n - i) * 2
+    if d > 0 or p > 0:
+        answer += 2 * (pos + 1)
 
     return answer
