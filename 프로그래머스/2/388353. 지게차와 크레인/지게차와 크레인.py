@@ -1,54 +1,60 @@
 from collections import deque
 
-def all_bfs(graph, ch):
-    for i in range(len(graph)):
-        for j in range(len(graph[0])):
-            if graph[i][j] == ch:
+def all_side_bfs(graph, target):
+    for i in range(1, len(graph) - 1):
+        for j in range(1, len(graph[0]) - 1):
+            if graph[i][j] == target:
                 graph[i][j] = '.'
 
-def out_side_bfs(graph, ch):
+def out_side_bfs(graph, target):
     n, m = len(graph), len(graph[0])
-    padH, padW = n + 2, m + 2
 
-    pad = [['.'] * padW for _ in range(padH)]
-    for i in range(n):
-        for j in range(m):
-            pad[i+1][j+1] = graph[i][j]
-
-    q = deque([(0, 0)])
-    visited = [[False]*padW for _ in range(padH)]
+    queue = deque()
+    queue.append((0, 0))
+    visited = [[False] * m for _ in range(n)]
     visited[0][0] = True
-
-    to_remove = set()
-    dirs = [(-1,0),(1,0),(0,-1),(0,1)]
-
-    while q:
-        r, c = q.popleft()
-        for dr, dc in dirs:
-            nr, nc = r+dr, c+dc
-            if 0 <= nr < padH and 0 <= nc < padW and not visited[nr][nc]:
-                cell = pad[nr][nc]
-                if cell == '.':
-                    visited[nr][nc] = True
-                    q.append((nr, nc))
-                elif cell == ch:
-                    gi, gj = nr-1, nc-1
-                    if 0 <= gi < n and 0 <= gj < m and graph[gi][gj] == ch:
-                        to_remove.add((gi, gj))
-
-    # BFS가 끝난 뒤 한 번에 제거 (동시성 보장)
-    for i, j in to_remove:
+    removed_set = set()
+    
+    dx = [-1, 0, 1, 0]
+    dy = [0, -1, 0, 1]
+    
+    while queue:
+        x, y = queue.popleft()
+        for d in range(4):
+            nx = x + dx[d]
+            ny = y + dy[d]
+            if 0 <= nx < n and 0 <= ny < m and not visited[nx][ny]:
+                visited[nx][ny] = True
+                
+                if graph[nx][ny] == '.':
+                    queue.append((nx, ny))
+                    
+                elif graph[nx][ny] == target:
+                    removed_set.add((nx, ny))
+    
+    for i, j in removed_set:
         graph[i][j] = '.'
 
 def solution(storage, requests):
-    n, m = len(storage), len(storage[0])
-    graph = [list(row) for row in storage]
+    answer = 0
+    rows, cols = len(storage), len(storage[0])
+    graph = [['.'] * (cols + 2)]
+    
+    for row in storage:
+        graph.append(['.'] + list(row) + ['.'])
+    
+    graph.append(['.'] * (cols + 2))
 
     for req in requests:
-        ch = req[0]
-        if len(req) == 1:
-            out_side_bfs(graph, ch)   # 지게차
+        target = req[0]
+        if len(req) == 2:
+            all_side_bfs(graph, target)
         else:
-            all_bfs(graph, ch)        # 크레인
-
-    return sum(1 for i in range(n) for j in range(m) if graph[i][j] != '.')
+            out_side_bfs(graph, target)
+    
+    for i in range(1, rows + 1):
+        for j in range(1, cols + 1):
+            if graph[i][j] != '.':
+                answer += 1
+    
+    return answer
