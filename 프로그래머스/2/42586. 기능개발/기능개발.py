@@ -1,12 +1,12 @@
 from collections import deque
 
 def solution(progresses, speeds):
-    
-    progresses = deque(progresses)
-    speeds = deque(speeds)
     answer = []
     time = 0
     count = 0
+    
+    progresses = deque(progresses)
+    speeds = deque(speeds)
     
     while progresses:
         if progresses[0] + (time * speeds[0]) >= 100:
@@ -14,12 +14,13 @@ def solution(progresses, speeds):
             speeds.popleft()
             count += 1
         else:
+            time += 1
             if count > 0:
                 answer.append(count)
                 count = 0
-            time += 1
-    
     if count > 0:
         answer.append(count)
     
     return answer
+    
+    
