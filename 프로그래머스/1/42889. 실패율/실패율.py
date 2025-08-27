@@ -14,7 +14,7 @@ def solution(N, stages):
         else:
             fail = count[stage] / players
         
-        answer.append((fail, stage))
+        answer.append((fail, stage)) # 위험도, 스테이지 넘버
         players -= count[stage]  # 다음 스테이지로 넘어갈 '도달 인원' 갱신
 
     answer.sort(key=lambda x: (-x[0], x[1]))
