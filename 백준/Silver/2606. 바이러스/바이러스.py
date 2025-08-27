@@ -1,7 +1,7 @@
 computer = int(input())
 pair = int(input())
 tree = [[] for _ in range(computer + 1)]
-visited = [False] * (computer + 1)
+visited = set()
 
 for _ in range(pair):
     start, end = map(int, input().split())
@@ -9,11 +9,12 @@ for _ in range(pair):
     tree[end].append(start)
 
 def dfs(v, arr):
-    visited[v] = True
+    visited.add(v)
     for next_v in tree[v]:
-        if not visited[next_v]:
+        if next_v not in visited:
             arr.append(next_v)
             dfs(next_v, arr)
+            
     return arr
 
 answer = dfs(1, [])
