@@ -1,13 +1,15 @@
 def solution(prices):
-    answer = []
-    n = len(prices)
-
-    for i in range(n):
-        count = 0
-        for j in range(i + 1, n):
-            count += 1
-            if prices[i] > prices[j]:  # 가격이 떨어진 순간
-                break
-        answer.append(count)
-
+    answer = [0] * len(prices)
+    stack = []
+    
+    for time, price in enumerate(prices):
+        while stack and stack[-1][1] > price:
+            past, _ = stack.pop()
+            answer[past] = time - past
+            
+        stack.append([time, price])
+    
+    for time, price in stack:
+        answer[time] = len(prices) - 1 - time
+    
     return answer
