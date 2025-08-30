@@ -1,25 +1,28 @@
 def solution(m, n, startX, startY, balls):
     answer = []
-    
-    for a, b in balls:
-        candidates = []
-        
-        # 왼쪽 벽 반사
-        if not (startY == b and startX > a):
-            candidates.append((startX - (-a))**2 + (startY - b)**2)
-        
-        # 오른쪽 벽 반사
-        if not (startY == b and startX < a):
-            candidates.append((startX - (2*m - a))**2 + (startY - b)**2)
-        
-        # 아래쪽 벽 반사
-        if not (startX == a and startY > b):
-            candidates.append((startX - a)**2 + (startY - (-b))**2)
-        
-        # 위쪽 벽 반사
-        if not (startX == a and startY < b):
-            candidates.append((startX - a)**2 + (startY - (2*n - b))**2)
-        
-        answer.append(min(candidates))
-    
+
+    def getDist(x1, y1, x2, y2):
+        return (x1 - x2) ** 2 + (y1 - y2) ** 2
+
+    for (ballX, ballY) in balls:
+        distU = getDist(startX, startY, ballX, ballY + (2 * (n - ballY)))
+        distD = getDist(startX, startY, ballX, -ballY)
+        distL = getDist(startX, startY, -ballX, ballY)
+        distR = getDist(startX, startY, ballX + (2 * (m - ballX)), ballY)
+
+        if startX == ballX:
+            if startY > ballY:
+                distD = int(1e9)
+            else:
+                distU = int(1e9)
+
+        if startY == ballY:
+            if startX > ballX:
+                distL = int(1e9)
+            else:
+                distR = int(1e9)
+
+        dist = min((distU, distD, distL, distR))
+        answer.append(dist)
+
     return answer
