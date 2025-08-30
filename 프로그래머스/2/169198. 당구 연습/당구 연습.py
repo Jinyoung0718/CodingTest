@@ -2,25 +2,33 @@ def solution(m, n, startX, startY, balls):
     answer = []
 
     def getDist(x1, y1, x2, y2):
-        return (x1 - x2) ** 2 + (y1 - y2) ** 2
+        return ((x1 - x2) ** 2) + ((y1 - y2) ** 2)
 
     for (ballX, ballY) in balls:
-        distU = getDist(startX, startY, ballX, ballY + (2 * (n - ballY)))
+        # 위쪽 벽 대칭: (a, n + (n - b))
+        distU = getDist(startX, startY, ballX, n + (n - ballY))
+        
+        # 아래쪽 벽 대칭: (a, -b)
         distD = getDist(startX, startY, ballX, -ballY)
+        
+        # 왼쪽 벽 대칭: (-a, b)
         distL = getDist(startX, startY, -ballX, ballY)
-        distR = getDist(startX, startY, ballX + (2 * (m - ballX)), ballY)
+        
+        # 오른쪽 벽 대칭: (m + (m - a), b)
+        distR = getDist(startX, startY, m + (m - ballX), ballY)
 
+        # 시작점과 목표 공이 일직선상일 때 불가능한 경로 제거
         if startX == ballX:
             if startY > ballY:
-                distD = int(1e9)
+                distD = float('inf')
             else:
-                distU = int(1e9)
+                distU = float('inf')
 
         if startY == ballY:
             if startX > ballX:
-                distL = int(1e9)
+                distL = float('inf')
             else:
-                distR = int(1e9)
+                distR = float('inf')
 
         dist = min((distU, distD, distL, distR))
         answer.append(dist)
