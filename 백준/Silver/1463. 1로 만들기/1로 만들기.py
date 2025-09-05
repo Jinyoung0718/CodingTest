@@ -1,13 +1,31 @@
-N = int(input())
+from collections import deque
 
-dp = [0]*(N+1)      # dp[1]=0 초기값 설정
+def bfs(n):
+    queue = deque()  # (현재 숫자, 연산 횟수)
+    queue.append((n, 0))
+    visited = set()
+    visited.add(n)
 
-for i in range(2, N+1):
-    dp[i] = dp[i-1]+1
-    if i%2==0:      # 숫자가 2의 배수인 경우 (*2)
-        dp[i]=min(dp[i], dp[i//2]+1)
-    if i%3==0:      # 숫자가 3의 배수인 경우 (*3)
-        dp[i]=min(dp[i], dp[i//3]+1)
+    while queue:
+        cur_num, cur_val = queue.popleft()
 
-ans = dp[N]
-print(ans)
+        if cur_num == 1:
+            return cur_val
+
+        next_nums = []
+
+        if cur_num % 3 == 0:
+            next_nums.append(cur_num // 3)
+
+        if cur_num % 2 == 0:
+            next_nums.append(cur_num // 2)
+
+        next_nums.append(cur_num - 1)
+
+        for nx in next_nums:
+            if nx not in visited:
+                visited.add(nx)
+                queue.append((nx, cur_val + 1))
+
+n = int(input())
+print(bfs(n))
