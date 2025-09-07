@@ -1,24 +1,24 @@
 def solution(cards):
     n = len(cards)
-    visited = [False] * n
-    group_sizes = []
+    visited = set()
+    answer = []
     
-    def dfs(cur):
-        visited[cur] = True
+    def dfs(x):
         count = 1
-        next_card = cards[cur] - 1 # 박스 안의 적힌 다음 상자 인덱스
+        visited.add(x)
+        next_card = cards[x] - 1
         
-        if not visited[next_card]:
+        if next_card not in visited:
             count += dfs(next_card)
         
         return count
     
     for i in range(n):
-        if not visited[i]:
-            group_sizes.append(dfs(i))
+        if i not in visited:
+            answer.append(dfs(i))
     
-    if len(group_sizes) < 2:
+    if len(answer) < 2:
         return 0
     
-    group_sizes.sort(reverse=True)
-    return group_sizes[0] * group_sizes[1]
+    answer.sort(reverse = True)
+    return answer[0] * answer[1]
